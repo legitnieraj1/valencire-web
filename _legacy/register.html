@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account | VALENCIRĖ®</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your VALENCIRĖ account">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a0033 0%, #000 50%, #0a0a0a 100%);
+            color: #f5f5f5;
+            font-family: "Helvetica Neue", "Futura", Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(127, 92, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(196, 30, 58, 0.08) 0%, transparent 50%);
+            animation: bgShift 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgShift {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                transform: translateY(-20px) scale(1.05);
+            }
+        }
+
+        .register-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            padding: 48px 40px;
+            border-radius: 28px;
+            background: radial-gradient(ellipse at top,
+                    rgba(255, 255, 255, 0.08),
+                    rgba(0, 0, 0, 0.95));
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(30px);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, .6),
+                0 0 100px rgba(127, 92, 255, 0.05);
+            animation: fadeIn .7s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .logo img {
+            height: 100px;
+            cursor: pointer;
+            transition: transform .4s ease, filter .3s ease;
+            filter: brightness(1.1);
+        }
+
+        .logo img:hover {
+            transform: scale(1.06);
+            filter: brightness(1.25);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 22px;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            font-weight: 400;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, #ffffff 0%, #b8b8b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 2px;
+            margin-bottom: 36px;
+            opacity: 0.5;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: all .3s ease;
+        }
+
+        input::placeholder {
+            color: rgba(245, 245, 245, 0.4);
+            letter-spacing: 1px;
+        }
+
+        input:focus {
+            border-color: rgba(127, 92, 255, 0.6);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(127, 92, 255, 0.15);
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 17px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+            color: #000000;
+            font-weight: 600;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all .4s ease;
+            text-transform: uppercase;
+            font-size: 12px;
+            box-shadow: 0 10px 30px rgba(127, 92, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .register-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #9d7aff 0%, #b89fff 100%);
+            opacity: 0;
+            transition: opacity .4s ease;
+        }
+
+        .register-btn:hover::before {
+            opacity: 1;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 42px rgba(127, 92, 255, 0.45);
+        }
+
+        .register-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .register-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .register-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 32px 0;
+            opacity: .4;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right,
+                    transparent,
+                    rgba(255, 255, 255, 0.3),
+                    transparent);
+        }
+
+        .divider span {
+            padding: 0 16px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .social-login {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .social-btn {
+            padding: 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+            color: #f5f5f5;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all .3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .social-btn:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .social-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        .sign-in-link {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 1px;
+            opacity: .75;
+            margin-top: 28px;
+        }
+
+        .sign-in-link a {
+            color: #7f5cff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all .3s ease;
+            position: relative;
+        }
+
+        .sign-in-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #7f5cff;
+            transition: width .3s ease;
+        }
+
+        .sign-in-link a:hover {
+            color: #9d7aff;
+        }
+
+        .sign-in-link a:hover::after {
+            width: 100%;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 14px;
+            display: none;
+            animation: shake .4s ease;
+            padding: 10px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+        }
+
+        .success-message {
+            color: #4caf50;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 14px;
+            display: none;
+            padding: 10px;
+            background: rgba(76, 175, 80, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-6px);
+            }
+
+            75% {
+                transform: translateX(6px);
+            }
+        }
+
+        .back-home {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            color: rgba(245, 245, 245, 0.6);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 2px;
+            transition: all .3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .back-home:hover {
+            color: #f5f5f5;
+            transform: translateX(-4px);
+        }
+
+        .back-home svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .password-strength {
+            font-size: 11px;
+            margin-top: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            text-align: center;
+            display: none;
+            letter-spacing: 1px;
+        }
+
+        .password-strength.weak {
+            background: rgba(255, 107, 107, 0.1);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            display: block;
+        }
+
+        .password-strength.medium {
+            background: rgba(255, 193, 7, 0.1);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            display: block;
+        }
+
+        .password-strength.strong {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            display: block;
+        }
+
+        @media(max-width: 520px) {
+            .register-container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 18px;
+                letter-spacing: 4px;
+            }
+
+
+
+            .back-home {
+                top: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="back-home" id="backHome">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        <span>HOME</span>
+    </a>
+
+    <div class="register-container">
+        <div class="logo">
+            <img src="LOGO BRO.png" alt="VALENCIRĖ" onclick="window.location.href='index.html'">
+        </div>
+
+        <h1>Create Account</h1>
+        <p class="subtitle">Join the VALENCIRĖ family</p>
+
+        <form onsubmit="handleRegister(event)" id="registerForm">
+            <div class="form-group">
+                <input type="text" id="fullName" placeholder="Full Name" required>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email Address" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password (min. 6 characters)" minlength="6" required
+                    oninput="checkPasswordStrength()">
+                <div class="password-strength" id="passwordStrength"></div>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" minlength="6" required>
+            </div>
+
+            <button class="register-btn" type="submit" id="registerBtn">
+                <span>Create Account</span>
+            </button>
+
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+        </form>
+
+        <div class="divider">
+            <span>or sign up with</span>
+        </div>
+
+        <div class="social-login">
+            <button class="social-btn" onclick="socialRegister('google')">
+                <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                        fill="#4285F4" />
+                    <path
+                        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                        fill="#34A853" />
+                    <path
+                        d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                        fill="#FBBC05" />
+                    <path
+                        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                        fill="#EA4335" />
+                </svg>
+                <span>Google</span>
+            </button>
+
+        </div>
+
+        <div class="sign-in-link">
+            Already have an account? <a href="account.html">Sign in</a>
+        </div>
+    </div>
+
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Supabase Credentials (not in git) -->
+    <script src="js/supabase-credentials.js"></script>
+
+    <!-- Supabase Config -->
+    <script src="js/supabase-config.js"></script>
+
+    <!-- Auth Utilities -->
+    <script src="js/auth.js"></script>
+
+    <script>
+        // Password strength checker
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthDiv = document.getElementById('passwordStrength');
+
+            if (password.length === 0) {
+                strengthDiv.className = 'password-strength';
+                strengthDiv.textContent = '';
+                return;
+            }
+
+            let strength = 0;
+
+            // Length check
+            if (password.length >= 8) strength += 1;
+            if (password.length >= 12) strength += 1;
+
+            // Character variety checks
+            if (/[a-z]/.test(password)) strength += 1;
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^a-zA-Z0-9]/.test(password)) strength += 1;
+
+            if (strength <= 2) {
+                strengthDiv.className = 'password-strength weak';
+                strengthDiv.textContent = '⚠ Weak password';
+            } else if (strength <= 4) {
+                strengthDiv.className = 'password-strength medium';
+                strengthDiv.textContent = '✓ Medium strength';
+            } else {
+                strengthDiv.className = 'password-strength strong';
+                strengthDiv.textContent = '✓ Strong password';
+            }
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validation
+            if (!fullName || !email || !password || !confirmPassword) {
+                AuthUtils.showError('Please fill in all fields');
+                return;
+            }
+
+            if (!AuthUtils.isValidEmail(email)) {
+                AuthUtils.showError('Please enter a valid email address');
+                return;
+            }
+
+            const passwordValidation = AuthUtils.validatePassword(password);
+            if (!passwordValidation.valid) {
+                AuthUtils.showError(passwordValidation.message);
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                AuthUtils.showError('Passwords do not match');
+                return;
+            }
+
+            const submitBtn = document.getElementById('registerBtn');
+            const btnSpan = submitBtn.querySelector('span');
+            const originalText = btnSpan.textContent;
+            btnSpan.textContent = 'Creating Account...';
+            submitBtn.disabled = true;
+
+            try {
+                // Sign up with Supabase
+                const { data, error } = await window.supabaseClient.auth.signUp({
+                    email: email,
+                    password: password,
+                    options: {
+                        data: {
+                            full_name: fullName,
+                        }
+                    }
+                });
+
+                if (error) throw error;
+
+                if (data.user) {
+                    AuthUtils.showSuccess('✓ Account created successfully!');
+
+                    // Store user info
+                    AuthUtils.storeUserInfo(data.user);
+
+                    // Check if email confirmation is required
+                    if (data.user.identities && data.user.identities.length === 0) {
+                        // Email confirmation required
+                        setTimeout(() => {
+                            alert('Please check your email to verify your account before signing in.');
+                            window.location.href = 'login.html';
+                        }, 1500);
+                    } else {
+                        // Auto-login successful
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1500);
+                    }
+                }
+
+            } catch (error) {
+                console.error('Registration error:', error);
+                const errorMessage = AuthUtils.formatErrorMessage(error);
+                AuthUtils.showError(errorMessage);
+                btnSpan.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function socialRegister(provider) {
+            try {
+                const { data, error } = await window.supabaseClient.auth.signInWithOAuth({
+                    provider: provider,
+                    options: {
+                        redirectTo: window.location.origin + '/index.html'
+                    }
+                });
+
+                if (error) throw error;
+
+            } catch (error) {
+                console.error('Social registration error:', error);
+                AuthUtils.showError(`${provider.charAt(0).toUpperCase() + provider.slice(1)} registration is not available at this time.`);
+            }
+        }
+
+        // Check if user is already logged in
+        async function checkSession() {
+            const session = await AuthUtils.getSession();
+            if (session) {
+                console.log('User already logged in:', session.user.email);
+                // Optionally redirect to home
+                // window.location.href = 'index.html';
+            }
+        }
+
+        // Run on page load
+        checkSession();
+    </script>
+
+</body>
+
+</html>
