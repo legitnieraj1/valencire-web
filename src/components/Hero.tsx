@@ -126,7 +126,14 @@ export default function Hero() {
               src={s.image}
               alt={`Valencire Campaign ${idx + 1}`}
               fill
-              className="object-cover object-center"
+              className="object-cover object-center hidden md:block"
+              priority={idx === 0}
+            />
+            <Image
+              src={s.image.replace('.png', '-mobile.png')}
+              alt={`Valencire Campaign Mobile ${idx + 1}`}
+              fill
+              className="object-cover object-center block md:hidden"
               priority={idx === 0}
             />
           </div>

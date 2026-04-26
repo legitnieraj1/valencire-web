@@ -102,7 +102,8 @@ export default function Home() {
         <div className="max-w-[1440px] mx-auto px-6 md:px-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[850px]">
             <div className="md:col-span-2 relative h-full group overflow-hidden rounded-3xl">
-              <Image src="/images/stillhouse.png" alt="Editorial 1" fill className="object-cover transition-opacity duration-[2s]" />
+              <Image src="/images/stillhouse.png" alt="Editorial 1" fill className="object-cover transition-opacity duration-[2s] hidden md:block" />
+              <Image src="/images/stillhouse-mobile.png" alt="Editorial 1 Mobile" fill className="object-cover transition-opacity duration-[2s] block md:hidden" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
               <div className="absolute bottom-16 left-16 text-white">
                 <h3 className="text-6xl font-semibold tracking-tight mb-6">The Linen Escape</h3>
@@ -111,7 +112,8 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-6 h-full">
               <div className="relative flex-1 group overflow-hidden rounded-3xl shadow-sm">
-                <Image src="/images/jeans-2.png" alt="Editorial 2" fill className="object-cover transition-opacity duration-[2s]" />
+                <Image src="/images/jeans-2.png" alt="Editorial 2" fill className="object-cover transition-opacity duration-[2s] hidden md:block" />
+                <Image src="/images/jeans-2-mobile.png" alt="Editorial 2 Mobile" fill className="object-cover transition-opacity duration-[2s] block md:hidden" />
               </div>
               <div className="relative flex-1 group overflow-hidden bg-white rounded-3xl shadow-sm p-12 flex flex-col justify-center items-center text-center border border-gray-100">
                 <h3 className="text-4xl font-semibold text-black tracking-tight mb-6">Unmatched Quality</h3>
