@@ -34,7 +34,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
 
   return (
     <div
-      className={`fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center transition-opacity duration-[1000ms] ${
+      className={`fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center transition-opacity duration-[1000ms] ${
         exiting ? "opacity-0" : "opacity-100"
       }`}
     >
@@ -52,16 +52,16 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
         {/* Progress Counter */}
         <div className="mt-8 flex flex-col items-center gap-4">
           <span
-            className="text-[10px] tracking-[0.5em] uppercase text-black/40 font-bold tabular-nums"
+            className="text-[10px] tracking-[0.5em] uppercase text-white/40 font-bold tabular-nums"
             style={{ fontFamily: "var(--font-inter)" }}
           >
             {String(Math.round(progress * 100)).padStart(3, "0")}
           </span>
           
           {/* Minimalist progress line */}
-          <div className="w-[60px] h-px bg-black/10 relative overflow-hidden">
+          <div className="w-[60px] h-px bg-white/10 relative overflow-hidden">
             <div
-              className="absolute top-0 left-0 h-full bg-black/40 transition-all duration-100"
+              className="absolute top-0 left-0 h-full bg-white/40 transition-all duration-100"
               style={{ width: `${progress * 100}%` }}
             />
           </div>
@@ -75,7 +75,7 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
         }`}
       >
         <p
-          className="text-[8px] tracking-[0.6em] uppercase text-black/25 font-medium"
+          className="text-[8px] tracking-[0.6em] uppercase text-white/25 font-medium"
           style={{ fontFamily: "var(--font-inter)" }}
         >
           Defining Modern Menswear
