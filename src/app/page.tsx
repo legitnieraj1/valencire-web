@@ -111,7 +111,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-6 h-full">
               <div className="relative flex-1 group overflow-hidden rounded-3xl shadow-sm">
-                <Image src="/images/jeans.png" alt="Editorial 2" fill className="object-cover transition-opacity duration-[2s]" />
+                <Image src="/images/jeans-2.png" alt="Editorial 2" fill className="object-cover transition-opacity duration-[2s]" />
               </div>
               <div className="relative flex-1 group overflow-hidden bg-white rounded-3xl shadow-sm p-12 flex flex-col justify-center items-center text-center border border-gray-100">
                 <h3 className="text-4xl font-semibold text-black tracking-tight mb-6">Unmatched Quality</h3>
