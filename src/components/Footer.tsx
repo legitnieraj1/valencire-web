@@ -42,11 +42,11 @@ export default function Footer() {
     <footer className="bg-white border-t border-[#e8e8e8]">
 
       {/* Main grid */}
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10 pt-16 pb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1.4fr] gap-12">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 pt-16 pb-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1.4fr] gap-12 text-center sm:text-left">
 
         {/* Brand column */}
-        <div className="lg:pr-12">
-          <div className="flex flex-col items-start gap-1">
+        <div className="lg:pr-12 flex flex-col items-center sm:items-start">
+          <div className="flex flex-col items-center sm:items-start gap-1">
             <VCMark size={40} color="#000" />
             <ValencireWordmark size="0.62rem" color="#000" />
           </div>
@@ -58,7 +58,7 @@ export default function Footer() {
           </p>
 
           {/* Social */}
-          <div className="mt-8 flex gap-4">
+          <div className="mt-8 flex justify-center sm:justify-start gap-4">
             {["Instagram", "Pinterest", "Facebook"].map((s) => (
               <a
                 key={s}
