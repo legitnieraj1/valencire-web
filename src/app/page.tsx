@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import { DENIMS, BEST_SELLERS, TOPWEAR, JUST_ARRIVED, ALL_PRODUCTS } from "@/data/products";
+import { DENIMS, BEST_SELLERS, JUST_ARRIVED, ALL_PRODUCTS } from "@/data/products";
 
 function ProductSection({ title, subtitle, products, showFilter = false, allProducts = [] }: any) {
   const [activeFilter, setActiveFilter] = useState("Straight");
@@ -88,13 +88,6 @@ export default function Home() {
       <ProductSection
         title="Best Sellers"
         products={BEST_SELLERS}
-      />
-
-      {/* 3. Topwear Section */}
-      <ProductSection
-        title="Topwear"
-        subtitle="SHOP BY STYLE"
-        products={TOPWEAR}
       />
 
       {/* 4. Editorial Masonry */}

@@ -31,26 +31,6 @@ const NAV = [
     },
   },
   {
-    label: "Shirts",
-    href: "/collections/shirts",
-    mega: {
-      cols: [
-        { title: "Fabric", links: ["Linen", "Oxford Cotton", "Twill", "Seersucker"] },
-        { title: "Style", links: ["Casual Shirts", "Formal Dress Shirts", "Half-Sleeve", "Overshirts"] },
-      ],
-    },
-  },
-  {
-    label: "T-Shirts",
-    href: "/collections/tshirts",
-    mega: {
-      cols: [
-        { title: "Fit & Style", links: ["Classic Crew Neck", "Premium Polos", "Oversized Fit", "V-Neck"] },
-        { title: "Material", links: ["Heavyweight Cotton", "Supima Cotton", "Merino Blend"] },
-      ],
-    },
-  },
-  {
     label: "Accessories",
     href: "/collections/accessories",
     mega: {

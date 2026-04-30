@@ -8,8 +8,6 @@ const FOOTER_LINKS = {
   Shop: [
     { label: "New In", href: "/new-in" },
     { label: "Denim", href: "/denim" },
-    { label: "Shirts", href: "/shirts" },
-    { label: "T-Shirts", href: "/tshirts" },
     { label: "Jackets", href: "/jackets" },
     { label: "Footwear", href: "/footwear" },
     { label: "Accessories", href: "/accessories" },
