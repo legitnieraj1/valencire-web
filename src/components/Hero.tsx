@@ -172,6 +172,7 @@ export default function Hero() {
                   >
                     SHOP NOW
                     <ArrowUpRight className="w-4 h-4 ml-2 stroke-[3px] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </Link>
                 </div>
               </div>
             ))}
