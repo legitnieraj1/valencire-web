@@ -33,21 +33,21 @@ function ProductSection({ title, subtitle, products, showFilter = false, allProd
           <h2 className="text-4xl md:text-5xl font-semibold text-black tracking-tight">{title}</h2>
         </div>
         <div className="flex items-center gap-6">
-          <Link href="#" className="text-[10px] font-bold uppercase tracking-widest border-b border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition-colors">VIEW ALL</Link>
+          <Link href="#" className="text-[12px] font-bold uppercase tracking-[0.2em] bg-[#FFF44F] border-2 border-black px-4 py-2 shadow-[2px_2px_0px_rgba(0,0,0,1)] hover:bg-[#FFD700] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all text-black" style={{ fontFamily: "Courier New, monospace" }}>VIEW ALL</Link>
           <div className="flex items-center gap-4">
-            <button className="text-gray-400 hover:text-black transition-colors"><ChevronLeft className="w-5 h-5" /></button>
-            <button className="text-gray-400 hover:text-black transition-colors"><ChevronRight className="w-5 h-5" /></button>
+            <button className="text-black border-2 border-black bg-white shadow-[2px_2px_0px_rgba(0,0,0,1)] p-1 hover:bg-[#EAE8E3] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all"><ChevronLeft className="w-6 h-6 stroke-[3px]" /></button>
+            <button className="text-black border-2 border-black bg-white shadow-[2px_2px_0px_rgba(0,0,0,1)] p-1 hover:bg-[#EAE8E3] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all"><ChevronRight className="w-6 h-6 stroke-[3px]" /></button>
           </div>
         </div>
       </div>
 
       {showFilter && (
-        <div className="flex justify-center gap-8 mb-16 text-4xl md:text-5xl font-semibold">
+        <div className="flex justify-center gap-6 mb-16" style={{ fontFamily: "Courier New, monospace" }}>
           {["Straight", "Bootcut", "Baggy"].map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`transition-colors ${activeFilter === filter ? "text-black" : "text-gray-200 hover:text-gray-400"}`}
+              className={`text-[14px] md:text-[18px] font-bold uppercase tracking-[0.2em] px-6 py-3 border-4 border-black transition-all shadow-[4px_4px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none ${activeFilter === filter ? "bg-[#FFF44F] text-black" : "bg-white text-black hover:bg-gray-100"}`}
             >
               {filter}
             </button>
@@ -122,10 +122,10 @@ export default function Home() {
       <section className="py-24 max-w-[1440px] mx-auto px-6 md:px-10">
         <div className="flex justify-between items-end mb-20">
           <div>
-            <h2 className="text-5xl md:text-7xl font-semibold text-black tracking-tighter mb-6">Just Arrived</h2>
-            <p className="text-gray-500 text-sm tracking-widest uppercase">Discover the latest in premium menswear.</p>
+            <h2 className="text-5xl md:text-7xl font-semibold text-black tracking-tighter mb-6" style={{ fontFamily: "Courier New, monospace" }}>JUST ARRIVED</h2>
+            <p className="text-gray-800 text-[12px] font-bold tracking-widest uppercase bg-[#FFF44F] border-2 border-black inline-block px-3 py-1 shadow-[2px_2px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "Courier New, monospace" }}>Discover the latest in premium menswear.</p>
           </div>
-          <Link href="/new-in" className="text-xs font-bold uppercase underline underline-offset-8 hover:text-gray-600 transition-colors tracking-widest">
+          <Link href="/new-in" className="text-[12px] font-bold uppercase tracking-[0.2em] bg-[#FFF44F] border-2 border-black px-6 py-3 shadow-[4px_4px_0px_rgba(0,0,0,1)] hover:bg-[#FFD700] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all text-black" style={{ fontFamily: "Courier New, monospace" }}>
             Shop All
           </Link>
         </div>
