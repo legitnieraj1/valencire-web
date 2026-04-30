@@ -3,8 +3,11 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Product } from "@/data/products";
 import Link from "next/link";
+import { VCMark } from "@/components/Logo";
 
 const mono = "'Courier New', Courier, monospace";
+const sf = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif";
+
 
 type CartItem = Product & {
   quantity: number;
@@ -81,7 +84,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             <p className="text-[9px] tracking-[0.4em] uppercase text-gray-500 mb-1" style={{ fontFamily: mono }}>
               Valenciré
             </p>
-            <h2 className="text-[20px] font-bold uppercase tracking-[0.15em] text-black leading-none" style={{ fontFamily: mono }}>
+            <h2 className="text-[22px] font-semibold text-black leading-none" style={{ fontFamily: sf }}>
               Your Bag
             </h2>
           </div>
@@ -132,7 +135,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
                 {/* Details */}
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-[12px] font-bold uppercase tracking-widest text-black leading-snug" style={{ fontFamily: mono }}>
+                    <h3 className="text-[14px] font-semibold text-black leading-snug" style={{ fontFamily: sf }}>
                       {item.name}
                     </h3>
                     <p className="text-[15px] font-bold text-black mt-1.5" style={{ fontFamily: mono }}>

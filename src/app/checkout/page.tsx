@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { ChevronLeft, Lock, ArrowRight, Check } from "lucide-react";
+import { VCMark } from "@/components/Logo";
 
 const mono = "'Courier New', Courier, monospace";
+const sf = "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif";
 
 function VintageInput({
   placeholder,
@@ -25,8 +27,8 @@ function VintageInput({
     <input
       type={type}
       placeholder={placeholder}
-      className={`w-full bg-[#EAE8E3] border-[3px] border-black px-5 py-4 text-[13px] font-bold placeholder-gray-500 outline-none focus:bg-[#FFF44F] focus:placeholder-gray-600 transition-colors ${className}`}
-      style={{ fontFamily: mono }}
+      className={`w-full bg-[#EAE8E3] border-[3px] border-black px-5 py-4 text-[14px] placeholder-gray-500 outline-none focus:bg-[#FFF44F] focus:placeholder-gray-600 transition-colors ${className}`}
+      style={{ fontFamily: sf }}
       value={value}
       onChange={onChange}
     />
@@ -46,12 +48,12 @@ function SectionCard({
     <div className="border-[4px] border-black bg-white shadow-[6px_6px_0px_rgba(0,0,0,1)]">
       <div className="bg-[#EAE8E3] border-b-[4px] border-black px-7 py-4 flex items-center gap-4">
         <span
-          className="w-8 h-8 bg-black text-[#FFF44F] flex items-center justify-center text-[13px] font-bold flex-shrink-0"
+          className="w-8 h-8 bg-black text-[#FFF44F] flex items-center justify-center text-[11px] font-bold flex-shrink-0"
           style={{ fontFamily: mono }}
         >
           {number}
         </span>
-        <h2 className="text-[13px] font-bold uppercase tracking-[0.25em] text-black" style={{ fontFamily: mono }}>
+        <h2 className="text-[17px] font-semibold text-black" style={{ fontFamily: sf }}>
           {title}
         </h2>
       </div>
@@ -76,7 +78,7 @@ export default function CheckoutPage() {
 
       {/* ── Top bar ── */}
       <header className="border-b-[4px] border-black bg-[#EAE8E3] sticky top-0 z-20">
-        <div className="max-w-[1280px] mx-auto px-6 md:px-10 h-[60px] flex items-center justify-between">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10 h-[70px] flex items-center justify-between">
           {/* Back */}
           <Link
             href="/"
@@ -87,10 +89,10 @@ export default function CheckoutPage() {
             <span className="hidden sm:inline">Back to Shop</span>
           </Link>
 
-          {/* Brand */}
-          <span className="text-[16px] font-bold uppercase tracking-[0.4em] text-black" style={{ fontFamily: mono }}>
-            VALENCIRÉ
-          </span>
+          {/* Brand – same as homepage navbar logo */}
+          <Link href="/" className="flex flex-col items-center gap-1">
+            <VCMark size={38} color="#000" />
+          </Link>
 
           {/* Step pills */}
           <div className="flex items-center gap-2">
@@ -142,7 +144,7 @@ export default function CheckoutPage() {
                         ✕
                       </span>
                     </div>
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-gray-600 leading-relaxed" style={{ fontFamily: mono }}>
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-gray-500 leading-relaxed" style={{ fontFamily: mono }}>
                       Keep me updated on new arrivals and exclusive offers
                     </span>
                   </label>
@@ -182,8 +184,8 @@ export default function CheckoutPage() {
               {/* CTA */}
               <button
                 onClick={() => setStep(2)}
-                className="w-full bg-[#FFF44F] border-[4px] border-black py-5 text-[14px] font-bold uppercase tracking-[0.25em] text-black shadow-[8px_8px_0px_rgba(0,0,0,1)] hover:bg-[#FFD700] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all flex items-center justify-center gap-4"
-                style={{ fontFamily: mono }}
+                className="w-full bg-[#FFF44F] border-[4px] border-black py-5 text-[16px] font-semibold text-black shadow-[8px_8px_0px_rgba(0,0,0,1)] hover:bg-[#FFD700] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all flex items-center justify-center gap-4"
+                style={{ fontFamily: sf }}
               >
                 Continue to Payment
                 <ArrowRight className="w-5 h-5 stroke-[3px]" />
@@ -253,8 +255,8 @@ export default function CheckoutPage() {
 
               {/* Pay CTA */}
               <button
-                className="w-full bg-black text-[#FFF44F] border-[4px] border-black py-5 text-[15px] font-bold uppercase tracking-[0.25em] shadow-[8px_8px_0px_rgba(200,170,110,0.5)] hover:shadow-[8px_8px_0px_rgba(0,0,0,0.8)] hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all flex items-center justify-center gap-4"
-                style={{ fontFamily: mono }}
+                className="w-full bg-black text-[#FFF44F] border-[4px] border-black py-5 text-[17px] font-semibold shadow-[8px_8px_0px_rgba(200,170,110,0.5)] hover:shadow-[8px_8px_0px_rgba(0,0,0,0.8)] hover:translate-x-[1px] hover:translate-y-[1px] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all flex items-center justify-center gap-4"
+                style={{ fontFamily: sf }}
               >
                 <Lock className="w-5 h-5 stroke-[3px]" />
                 Pay RS. {total.toLocaleString()}.00
@@ -277,10 +279,10 @@ export default function CheckoutPage() {
           <div className="border-[4px] border-black bg-white shadow-[8px_8px_0px_rgba(0,0,0,1)]">
             {/* Vintage header strip */}
             <div className="bg-[#EAE8E3] border-b-[4px] border-black px-7 py-4 flex justify-between items-center">
-              <h2 className="text-[14px] font-bold uppercase tracking-[0.25em] text-black" style={{ fontFamily: mono }}>
+              <h2 className="text-[17px] font-semibold text-black" style={{ fontFamily: sf }}>
                 Order Summary
               </h2>
-              <span className="text-[11px] font-bold text-gray-600 border-[2px] border-black px-2 py-0.5 bg-white" style={{ fontFamily: mono }}>
+              <span className="text-[10px] font-bold text-gray-600 border-[2px] border-black px-2 py-0.5 bg-white" style={{ fontFamily: mono }}>
                 {cartCount} item{cartCount !== 1 ? "s" : ""}
               </span>
             </div>
