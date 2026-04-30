@@ -146,13 +146,13 @@ export default function Hero() {
         <div className={`absolute ${slide.cta.position} pointer-events-auto`}>
           <Link
             href={slide.cta.href}
-            className="group relative flex items-center justify-center bg-[#FFF44F] border-4 border-black text-black px-8 py-5 text-[12px] md:text-[14px] font-bold tracking-[0.2em] uppercase transition-all duration-300 shadow-[6px_6px_0px_rgba(0,0,0,1)] active:translate-y-[4px] active:translate-x-[4px] active:shadow-none hover:bg-[#FFD700]"
-            style={{ fontFamily: "Courier New, monospace" }}
+            className="group relative flex items-center justify-center bg-black text-white px-8 py-4 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase overflow-hidden transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,0,0,0.4)] hover:-translate-y-1 rounded-full"
           >
             <span className="relative z-10 flex items-center">
               {slide.cta.label}
-              <ArrowRight className="w-5 h-5 ml-4 stroke-[3px] transition-transform duration-300 group-hover:translate-x-2" />
+              <ArrowRight className="w-4 h-4 ml-3 transition-transform duration-300 group-hover:translate-x-2" />
             </span>
+            <div className="absolute inset-0 bg-neutral-800 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
           </Link>
         </div>
 
@@ -163,15 +163,16 @@ export default function Hero() {
               <div key={pIdx} className="flex items-start gap-8">
                 {pIdx > 0 && <div className="w-[1px] h-16 bg-black/20 mt-1" />}
                 <div className="flex flex-col text-black">
-                  <h3 className="text-[13px] md:text-[15px] font-bold tracking-widest uppercase mb-2 bg-[#FFF44F] border-2 border-black inline-block px-2 py-1 shadow-[2px_2px_0px_rgba(0,0,0,1)]" style={{ fontFamily: "Courier New, monospace" }}>{p.title}</h3>
-                  <p className="text-[11px] md:text-[13px] text-black font-bold mb-6 whitespace-pre-line" style={{ fontFamily: "Courier New, monospace" }}>{p.desc}</p>
+                  <h3 className="text-xs md:text-sm font-bold tracking-widest uppercase mb-2">{p.title}</h3>
+                  <p className="text-[10px] md:text-xs text-gray-800 mb-6 whitespace-pre-line">{p.desc}</p>
                   <Link
                     href={p.href}
-                    className="group text-[11px] md:text-[12px] font-bold uppercase tracking-[0.2em] relative inline-flex items-center w-fit pb-1 text-black hover:text-gray-600 transition-colors"
-                    style={{ fontFamily: "Courier New, monospace" }}
+                    className="group text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] relative inline-flex items-center w-fit pb-1 text-black"
                   >
                     SHOP NOW
-                    <ArrowUpRight className="w-4 h-4 ml-2 stroke-[3px] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <ArrowUpRight className="w-3 h-3 ml-2 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-black origin-left scale-x-100 group-hover:scale-x-0 transition-transform duration-300" />
+                    <span className="absolute bottom-0 right-0 w-full h-[1px] bg-gray-400 origin-right scale-x-0 group-hover:scale-x-100 transition-transform duration-300 delay-100" />
                   </Link>
                 </div>
               </div>
@@ -180,20 +181,20 @@ export default function Hero() {
         )}
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-[#EAE8E3] border-4 border-black px-4 py-2 shadow-[4px_4px_0px_rgba(0,0,0,1)] pointer-events-auto">
-          <button onClick={goPrev} className="text-black hover:text-gray-500 transition-colors">
-            <ChevronLeft className="w-5 h-5 stroke-[3px]" />
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/80 backdrop-blur-md rounded-full px-3 py-1.5 shadow-sm pointer-events-auto">
+          <button onClick={goPrev} className="text-black/40 hover:text-black transition-colors">
+            <ChevronLeft className="w-3 h-3" />
           </button>
           {SLIDES.map((_, idx) => (
             <button
               key={idx}
               onClick={() => goTo(idx)}
-              className={`w-3 h-3 border-2 border-black transition-all duration-300 ${idx === current ? "bg-[#FFF44F] scale-110 shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "bg-white hover:bg-gray-200"
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${idx === current ? "bg-black scale-110" : "bg-black/25 hover:bg-black/50"
                 }`}
             />
           ))}
-          <button onClick={goNext} className="text-black hover:text-gray-500 transition-colors">
-            <ChevronRight className="w-5 h-5 stroke-[3px]" />
+          <button onClick={goNext} className="text-black/40 hover:text-black transition-colors">
+            <ChevronRight className="w-3 h-3" />
           </button>
         </div>
       </div>
