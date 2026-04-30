@@ -1,7 +1,7 @@
 import { ALL_PRODUCTS } from "@/data/products";
-import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import CollectionProductBrowser from "@/components/CollectionProductBrowser";
 
 export default async function CollectionPage(props: {
   params: Promise<{ category: string }>;
@@ -46,38 +46,7 @@ export default async function CollectionPage(props: {
           </p>
         </div>
 
-        {/* Filter/Sort Bar */}
-        <div className="flex justify-between items-center py-4 border-y border-gray-100 mb-12">
-          <div className="flex gap-8 text-[11px] font-bold uppercase tracking-widest text-black">
-            <button className="hover:text-gray-500 transition-colors">Filter +</button>
-            <span className="text-gray-400">{filteredProducts.length} Results</span>
-          </div>
-          <select className="text-[11px] font-bold uppercase tracking-widest text-black bg-transparent outline-none cursor-pointer">
-            <option>Sort By: Featured</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
-            <option>Newest</option>
-          </select>
-        </div>
-
-        {/* Product Grid */}
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-12">
-            {filteredProducts.map((prod) => (
-              <ProductCard key={prod.id} prod={prod} />
-            ))}
-          </div>
-        ) : (
-          <div className="py-32 text-center border border-gray-50 bg-gray-50/50 rounded-2xl">
-            <h3 className="text-2xl font-semibold text-gray-400 mb-4">No products found.</h3>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">
-              We couldn't find any products matching "{title}". Please try selecting a different category or fit.
-            </p>
-            <Link href="/" className="mt-8 inline-block px-8 py-4 bg-black text-white text-[10px] font-bold uppercase tracking-widest hover:bg-gray-800 transition-colors">
-              Return Home
-            </Link>
-          </div>
-        )}
+        <CollectionProductBrowser products={filteredProducts} title={title} />
       </div>
     </div>
   );

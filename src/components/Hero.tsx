@@ -8,6 +8,7 @@ import { ArrowUpRight, ArrowRight, ChevronLeft, ChevronRight } from "lucide-reac
 const SLIDES = [
   {
     image: "/images/hero-1.png",
+    mobileImage: "/images/heromobile.jpg",
     cta: {
       label: "SHOP COLLECTION",
       href: "/collections/jeans",
@@ -28,6 +29,7 @@ const SLIDES = [
   },
   {
     image: "/images/hero-3.png",
+    mobileImage: "/images/hero-2-mobile.jpg",
     cta: {
       label: "SHOP SHIRTS",
       href: "/collections/shirts",
@@ -130,7 +132,7 @@ export default function Hero() {
               priority={idx === 0}
             />
             <Image
-              src={s.image.replace('.png', '-mobile.png')}
+              src={s.mobileImage}
               alt={`Valencire Campaign Mobile ${idx + 1}`}
               fill
               className="object-cover object-center block md:hidden"

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, ShoppingBag, User, Heart, X, Menu, ChevronRight } from "lucide-react";
+import { Search, ShoppingBag, User, Heart, X, ChevronRight, Home, Menu } from "lucide-react";
 import { VCMark, ValencireWordmark } from "./Logo";
 import { ALL_PRODUCTS } from "@/data/products";
 import { useCart } from "@/context/CartContext";
@@ -86,96 +86,140 @@ export default function Navbar() {
         p.name.toLowerCase().includes(searchQuery.toLowerCase())
       ).slice(0, 6)
     : [];
+  const mobileOverlay = pathname === "/" && !scrolled && !searchOpen;
+  const mobileTopLinks = [
+    { label: "Jeans", href: "/collections/jeans" },
+    { label: "Trousers", href: "/collections/trousers" },
+    { label: "Shirt", href: "/collections/shirts" },
+    { label: "Story", href: "/#story" },
+  ];
+  const desktopCategoryLinks = [
+    { label: "Jeans", href: "/collections/jeans", menuLabel: "Jeans" },
+    { label: "Trousers", href: "/collections/trousers", menuLabel: "Trousers & Pants" },
+    { label: "Shirts", href: "/collections/shirts" },
+    { label: "Story", href: "/#story" },
+    { label: "New In", href: "/new-in" },
+  ];
 
   return (
     <>
       <header
-        className={`sticky top-0 z-50 w-full bg-white transition-all duration-500 ${
-          scrolled ? "shadow-[0_1px_0_rgba(0,0,0,0.08)]" : "border-b border-[#e8e8e8]"
+        className={`fixed lg:sticky top-0 z-50 w-full transition-all duration-500 ${
+          mobileOverlay
+            ? "bg-transparent text-white"
+            : "bg-white/95 text-black shadow-[0_1px_0_rgba(0,0,0,0.08)] backdrop-blur-md"
+        } lg:bg-white lg:text-black lg:backdrop-blur-none ${
+          scrolled ? "lg:shadow-[0_1px_0_rgba(0,0,0,0.08)]" : "lg:border-b lg:border-[#e8e8e8]"
         }`}
         onMouseLeave={() => setActiveMenu(null)}
       >
-        {/* ── Top row ── */}
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 h-[70px] flex items-center justify-between relative">
-
-          {/* Left: desktop nav (first 4 items) */}
-          <nav className="hidden lg:flex items-center gap-8 flex-1">
-            {NAV.slice(0, 4).map((item) => (
+        {/* ── Mobile editorial top nav ── */}
+        <div className="lg:hidden px-5 pt-[max(0.85rem,env(safe-area-inset-top))] pb-4">
+          <Link
+            href="/"
+            onClick={() => setActiveMenu(null)}
+            className={`mx-auto mb-5 flex w-fit flex-col items-center transition-[filter] duration-500 ${
+              mobileOverlay ? "invert" : ""
+            }`}
+            aria-label="Valencire home"
+          >
+            <VCMark size={38} />
+            <ValencireWordmark size="0.62rem" />
+          </Link>
+          <nav className="grid grid-cols-4 items-center gap-1">
+            {mobileTopLinks.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`relative text-[10.5px] tracking-[0.22em] uppercase font-semibold transition-colors duration-200 py-1 ${
-                  item.highlight ? "text-red-600" : "text-black hover:text-[#666]"
-                }`}
+                className="text-center text-[11px] font-semibold uppercase tracking-[0.22em] transition-opacity active:opacity-60"
                 style={{ fontFamily: "var(--font-inter)" }}
-                onMouseEnter={() => item.mega ? setActiveMenu(item.label) : setActiveMenu(null)}
               >
                 {item.label}
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-px bg-black transition-transform duration-300 origin-left ${
-                    activeMenu === item.label ? "scale-x-100" : "scale-x-0"
-                  }`}
-                />
               </Link>
             ))}
           </nav>
+        </div>
 
-          {/* Center: VC logo mark + wordmark */}
-          <div className="flex-shrink-0 lg:absolute lg:left-1/2 lg:-translate-x-1/2">
-            <Link
-              href="/"
-              onClick={() => setActiveMenu(null)}
-              className="flex flex-col items-center gap-1 group"
+        {/* ── Desktop utility row ── */}
+        <div className="hidden lg:grid max-w-[1440px] mx-auto px-8 xl:px-12 h-[82px] grid-cols-[1fr_auto_1fr] items-center relative">
+          <div className="flex items-center gap-7">
+            <button
+              onClick={() => setActiveMenu(activeMenu === "Jeans" ? null : "Jeans")}
+              className="flex items-center gap-3 text-[14px] font-medium text-black transition-colors hover:text-[#666]"
+              style={{ fontFamily: "var(--font-inter)" }}
+              aria-label="Open menu"
             >
-              <VCMark size={40} color="#000" />
-              <ValencireWordmark size="0.62rem" color="#000" />
-            </Link>
-          </div>
-
-          {/* Right: icons */}
-          <div className="flex items-center gap-5 flex-1 justify-end">
+              <Menu className="h-5 w-5" strokeWidth={1.5} />
+              <span>Menu</span>
+            </button>
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               aria-label="Search"
-              className="text-black hover:text-[#666] transition-colors"
+              className="flex items-center gap-3 text-[14px] font-medium text-black transition-colors hover:text-[#666]"
+              style={{ fontFamily: "var(--font-inter)" }}
             >
-              {searchOpen ? <X className="w-[18px] h-[18px]" /> : <Search className="w-[18px] h-[18px]" />}
+              {searchOpen ? <X className="h-5 w-5" strokeWidth={1.5} /> : <Search className="h-5 w-5" strokeWidth={1.5} />}
+              <span>Search</span>
             </button>
-            <Link href="/account" aria-label="Account" className="text-black hover:text-[#666] transition-colors hidden sm:block">
-              <User className="w-[18px] h-[18px]" />
+          </div>
+
+          <Link
+            href="/"
+            onClick={() => setActiveMenu(null)}
+            className="relative block h-[38px] w-[220px] overflow-hidden"
+            aria-label="Valencire home"
+          >
+            <Image
+              src="/images/text-logo-nav.png"
+              alt="Valencire"
+              fill
+              priority
+              className="object-contain"
+              sizes="220px"
+            />
+          </Link>
+
+          <div className="flex items-center justify-end gap-6">
+            <a
+              href="tel:+919876543210"
+              className="text-[14px] font-medium text-black transition-colors hover:text-[#666]"
+              style={{ fontFamily: "var(--font-inter)" }}
+            >
+              Call Us
+            </a>
+            <Link href="/wishlist" aria-label="Wishlist" className="relative text-black transition-colors hover:text-[#666]">
+              <Heart className="h-[22px] w-[22px]" strokeWidth={1.5} />
+              <span className="absolute -right-1 -top-1 h-1.5 w-1.5 rounded-full bg-[#b56b18]" />
             </Link>
-            <Link href="/wishlist" aria-label="Wishlist" className="text-black hover:text-[#666] transition-colors hidden sm:block">
-              <Heart className="w-[18px] h-[18px]" />
+            <Link href="/account" aria-label="Account" className="text-black transition-colors hover:text-[#666]">
+              <User className="h-[22px] w-[22px]" strokeWidth={1.5} />
             </Link>
-            <button onClick={() => setIsCartOpen(true)} aria-label="Cart" className="text-black hover:text-[#666] transition-colors relative">
-              <ShoppingBag className="w-[18px] h-[18px]" />
+            <button onClick={() => setIsCartOpen(true)} aria-label="Cart" className="relative text-black transition-colors hover:text-[#666]">
+              <ShoppingBag className="h-[22px] w-[22px]" strokeWidth={1.5} />
               {cartCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 w-[14px] h-[14px] bg-black text-white text-[8px] flex items-center justify-center rounded-full font-bold leading-none">{cartCount}</span>
+                <span className="absolute -top-1.5 -right-1.5 w-[15px] h-[15px] bg-black text-white text-[8px] flex items-center justify-center rounded-full font-bold leading-none">{cartCount}</span>
               )}
-            </button>
-            <button onClick={() => setMobileOpen(true)} className="lg:hidden text-black" aria-label="Menu">
-              <Menu className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        {/* ── Category strip ── */}
-        <div className="hidden lg:flex border-t border-[#e8e8e8] justify-center">
-          <ul className="flex items-center gap-8 py-[10px]">
-            {NAV.slice(4).map((item) => (
+        {/* ── Desktop category strip ── */}
+        <div className="hidden lg:flex border-t border-[#eeeeee] justify-center">
+          <ul className="flex items-center gap-10 py-[12px]">
+            {desktopCategoryLinks.map((item) => {
+              const megaItem = NAV.find((navItem) => navItem.label === item.menuLabel);
+              return (
               <li key={item.label}>
                 <Link
                   href={item.href}
-                  className={`text-[10px] tracking-[0.22em] uppercase font-medium transition-colors duration-200 ${
-                    item.highlight ? "text-red-600 font-bold" : "text-black hover:text-[#666]"
-                  }`}
+                  className="relative text-[10px] tracking-[0.3em] uppercase font-semibold text-black transition-colors duration-200 hover:text-[#666]"
                   style={{ fontFamily: "var(--font-inter)" }}
-                  onMouseEnter={() => item.mega ? setActiveMenu(item.label) : setActiveMenu(null)}
+                  onMouseEnter={() => megaItem?.mega ? setActiveMenu(megaItem.label) : setActiveMenu(null)}
                 >
                   {item.label}
                 </Link>
               </li>
-            ))}
+            )})}
           </ul>
         </div>
 
@@ -224,7 +268,7 @@ export default function Navbar() {
           )}
           {searchQuery.length >= 2 && searchResults.length === 0 && (
             <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-8 bg-white text-center">
-              <p className="text-sm text-gray-400">No results found for "{searchQuery}"</p>
+              <p className="text-sm text-gray-400">No results found for &quot;{searchQuery}&quot;</p>
             </div>
           )}
         </div>
@@ -269,6 +313,49 @@ export default function Navbar() {
             )
         )}
       </header>
+      {pathname !== "/" && <div className="h-[116px] lg:hidden" aria-hidden="true" />}
+
+      {/* ── Mobile bottom nav ── */}
+      <nav
+        className="fixed inset-x-0 bottom-0 z-50 grid h-[76px] grid-cols-5 items-center border-t border-black/10 bg-white/95 px-3 pb-[max(0.65rem,env(safe-area-inset-bottom))] pt-3 text-black shadow-[0_-18px_40px_rgba(0,0,0,0.08)] backdrop-blur-md lg:hidden"
+        aria-label="Mobile navigation"
+      >
+        <Link href="/" aria-label="Home" className="flex h-full items-center justify-center">
+          <span className="flex h-10 w-10 items-center justify-center border-b border-black">
+            <Home className="h-[23px] w-[23px]" strokeWidth={1.35} />
+          </span>
+        </Link>
+        <button
+          onClick={() => setSearchOpen((open) => !open)}
+          aria-label="Search"
+          className="flex h-full items-center justify-center"
+        >
+          <Search className="h-[25px] w-[25px]" strokeWidth={1.25} />
+        </button>
+        <button
+          onClick={() => setMobileOpen(true)}
+          className="flex h-full items-center justify-center text-[14px] font-medium uppercase tracking-[0.2em]"
+          style={{ fontFamily: "var(--font-inter)" }}
+          aria-label="Menu"
+        >
+          Menu
+        </button>
+        <Link href="/account" aria-label="Account" className="flex h-full items-center justify-center">
+          <User className="h-[24px] w-[24px]" strokeWidth={1.25} />
+        </Link>
+        <button
+          onClick={() => setIsCartOpen(true)}
+          aria-label="Cart"
+          className="relative flex h-full items-center justify-center"
+        >
+          <ShoppingBag className="h-[25px] w-[25px]" strokeWidth={1.2} />
+          {cartCount > 0 && (
+            <span className="absolute right-[18%] top-1 flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-[#ff2f1f] px-1 text-[11px] font-bold leading-none text-white">
+              {cartCount}
+            </span>
+          )}
+        </button>
+      </nav>
 
       {/* ── Mobile drawer ── */}
       <div

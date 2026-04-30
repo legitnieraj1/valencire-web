@@ -9,13 +9,13 @@ import ProductCard from "@/components/ProductCard";
 import { DENIMS, BEST_SELLERS, JUST_ARRIVED, ALL_PRODUCTS } from "@/data/products";
 
 function ProductSection({ title, subtitle, products, showFilter = false, allProducts = [] }: any) {
-  const [activeFilter, setActiveFilter] = useState("Straight");
+  const [activeFilter, setActiveFilter] = useState("Wide Fit");
 
   // Determine which products to display based on filter
   let displayProducts = products;
   if (showFilter) {
     const subcategoryMap: any = {
-      "Straight": "straight-leg",
+      "Wide Fit": "relaxed-fit",
       "Bootcut": "bootcut",
       "Baggy": "relaxed-fit"
     };
@@ -42,8 +42,8 @@ function ProductSection({ title, subtitle, products, showFilter = false, allProd
       </div>
 
       {showFilter && (
-        <div className="flex justify-center gap-8 mb-16 text-4xl md:text-5xl font-semibold">
-          {["Straight", "Bootcut", "Baggy"].map((filter) => (
+        <div className="flex justify-start md:justify-center gap-5 sm:gap-7 mb-12 md:mb-16 overflow-x-auto pb-2 text-[1.75rem] sm:text-4xl md:text-5xl font-semibold [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {["Wide Fit", "Bootcut", "Baggy"].map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
@@ -55,7 +55,7 @@ function ProductSection({ title, subtitle, products, showFilter = false, allProd
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4 md:gap-8">
         {displayProducts.length > 0 ? (
           displayProducts.map((prod: any) => (
             <ProductCard key={prod.id} prod={prod} />
@@ -81,7 +81,7 @@ export default function Home() {
         subtitle="SHOP BY FIT"
         products={DENIMS}
         showFilter={true}
-        allProducts={ALL_PRODUCTS.filter((p: any) => p.category === "jeans")}
+        allProducts={ALL_PRODUCTS}
       />
 
       {/* 2. Best Sellers Section */}
@@ -90,30 +90,63 @@ export default function Home() {
         products={BEST_SELLERS}
       />
 
-      {/* 4. Editorial Masonry */}
-      <section className="py-24 bg-gray-50/30 animate-fade-up">
+      {/* 4. Valencire Story */}
+      <section id="story" className="scroll-mt-[120px] py-24 bg-[#f7f5f0] animate-fade-up">
         <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-[850px]">
-            <div className="md:col-span-2 relative h-full group overflow-hidden rounded-3xl">
-              <Image src="/images/stillhouse.png" alt="Editorial 1" fill className="object-cover transition-opacity duration-[2s] hidden md:block" />
-              <Image src="/images/stillhouse-mobile.png" alt="Editorial 1 Mobile" fill className="object-cover transition-opacity duration-[2s] block md:hidden" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-              <div className="absolute bottom-16 left-16 text-white">
-                <h3 className="text-6xl font-semibold tracking-tight mb-6">The Linen Escape</h3>
-                <Link href="#" className="uppercase text-xs font-bold underline underline-offset-8 hover:text-gray-300 transition-colors tracking-widest">Explore Collection</Link>
-              </div>
+          <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+            <div>
+              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.45em] text-black/40">About Valencire</p>
+              <h2 className="max-w-xl text-5xl font-semibold leading-[0.95] tracking-tight text-black md:text-7xl">
+                A wardrobe built in quiet chapters.
+              </h2>
             </div>
-            <div className="flex flex-col gap-6 h-full">
-              <div className="relative flex-1 group overflow-hidden rounded-3xl shadow-sm">
-                <Image src="/images/jeans-2.png" alt="Editorial 2" fill className="object-cover transition-opacity duration-[2s] hidden md:block" />
-                <Image src="/images/jeans-2-mobile.png" alt="Editorial 2 Mobile" fill className="object-cover transition-opacity duration-[2s] block md:hidden" />
-              </div>
-              <div className="relative flex-1 group overflow-hidden bg-white rounded-3xl shadow-sm p-12 flex flex-col justify-center items-center text-center border border-gray-100">
-                <h3 className="text-4xl font-semibold text-black tracking-tight mb-6">Unmatched Quality</h3>
-                <p className="text-xs md:text-sm text-gray-500 mb-8 leading-relaxed max-w-[280px]">Experience the finest materials tailored to perfection for the modern man.</p>
-                <Link href="#" className="uppercase text-[10px] font-bold border-b border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition-colors tracking-widest">Read Our Story</Link>
-              </div>
-            </div>
+            <p className="max-w-2xl text-sm leading-7 text-black/55 md:text-base md:leading-8">
+              Valencire begins with restraint: the clean line of a pleat, the weight of denim, the ease of a wider trouser, and the confidence of pieces that do not ask for attention. Each collection is designed as a modern uniform for movement, proportion, and everyday presence.
+            </p>
+          </div>
+
+          <div className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-5">
+            {[
+              { src: "/images/pleated_3.png", title: "The Pleat", copy: "Tailoring gives the first line its discipline." },
+              { src: "/images/jeans-2-mobile.png", title: "The Denim", copy: "Texture holds the memory of movement." },
+              { src: "/images/bush_4.png", title: "The Utility", copy: "Function is refined until it feels effortless." },
+              { src: "/images/bootcut_3.png", title: "The Cut", copy: "A longer silhouette brings quiet drama." },
+              { src: "/images/baggy_4.png", title: "The Ease", copy: "Volume becomes comfort, not excess." },
+            ].map((item, index) => (
+              <article
+                key={item.title}
+                className={`group relative min-h-[260px] overflow-hidden bg-black md:min-h-[430px] ${
+                  index === 0 ? "col-span-2 md:col-span-1" : ""
+                }`}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                  <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.35em] text-white/50">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
+                  <p className="mt-2 max-w-[190px] text-[11px] leading-5 text-white/70">{item.copy}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-12 border-y border-black/10 py-8 md:flex md:items-center md:justify-between">
+            <p className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-black md:text-4xl">
+              Made for the man who dresses with intention, and leaves the room feeling effortless.
+            </p>
+            <Link
+              href="/collections/trousers"
+              className="mt-8 inline-flex border-b border-black pb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-black transition-colors hover:text-black/50 md:mt-0"
+            >
+              Explore the uniform
+            </Link>
           </div>
         </div>
       </section>
@@ -130,7 +163,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 gap-4 sm:gap-8 md:grid-cols-4">
           {JUST_ARRIVED.map((prod) => (
             <ProductCard key={prod.id} prod={prod} />
           ))}
