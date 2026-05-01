@@ -317,7 +317,7 @@ export default function Navbar() {
 
       {/* ── Mobile bottom nav ── */}
       <nav
-        className="fixed inset-x-0 bottom-0 z-50 grid h-[76px] grid-cols-5 items-center border-t border-black/10 bg-white/95 px-3 pb-[max(0.65rem,env(safe-area-inset-bottom))] pt-3 text-black shadow-[0_-18px_40px_rgba(0,0,0,0.08)] backdrop-blur-md lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-50 grid h-[76px] grid-cols-3 items-center border-t border-black/10 bg-white/95 px-3 pb-[max(0.65rem,env(safe-area-inset-bottom))] pt-3 text-black shadow-[0_-18px_40px_rgba(0,0,0,0.08)] backdrop-blur-md lg:hidden"
         aria-label="Mobile navigation"
       >
         <Link href="/" aria-label="Home" className="flex h-full items-center justify-center">
@@ -326,13 +326,6 @@ export default function Navbar() {
           </span>
         </Link>
         <button
-          onClick={() => setSearchOpen((open) => !open)}
-          aria-label="Search"
-          className="flex h-full items-center justify-center"
-        >
-          <Search className="h-[25px] w-[25px]" strokeWidth={1.25} />
-        </button>
-        <button
           onClick={() => setMobileOpen(true)}
           className="flex h-full items-center justify-center text-[14px] font-medium uppercase tracking-[0.2em]"
           style={{ fontFamily: "var(--font-inter)" }}
@@ -340,9 +333,6 @@ export default function Navbar() {
         >
           Menu
         </button>
-        <Link href="/account" aria-label="Account" className="flex h-full items-center justify-center">
-          <User className="h-[24px] w-[24px]" strokeWidth={1.25} />
-        </Link>
         <button
           onClick={() => setIsCartOpen(true)}
           aria-label="Cart"

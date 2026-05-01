@@ -148,13 +148,10 @@ export default function Hero() {
         <div className={`absolute ${slide.cta.position} pointer-events-auto`}>
           <Link
             href={slide.cta.href}
-            className="group relative flex items-center justify-center bg-black text-white px-8 py-4 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase overflow-hidden transition-all duration-300 shadow-lg hover:shadow-[0_0_25px_rgba(0,0,0,0.4)] hover:-translate-y-1 rounded-full"
+            className="group flex items-center justify-center border-[0.5px] border-black/80 bg-transparent text-black/80 px-8 py-3 text-[11px] md:text-xs font-light lowercase tracking-[0.25em] transition-colors duration-300 hover:border-black hover:text-black"
           >
-            <span className="relative z-10 flex items-center">
-              {slide.cta.label}
-              <ArrowRight className="w-4 h-4 ml-3 transition-transform duration-300 group-hover:translate-x-2" />
-            </span>
-            <div className="absolute inset-0 bg-neutral-800 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+            {slide.cta.label}
+            <ArrowRight className="w-3 h-3 ml-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={1} />
           </Link>
         </div>
 
@@ -169,12 +166,10 @@ export default function Hero() {
                   <p className="text-[10px] md:text-xs text-gray-800 mb-6 whitespace-pre-line">{p.desc}</p>
                   <Link
                     href={p.href}
-                    className="group text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] relative inline-flex items-center w-fit pb-1 text-black"
+                    className="group flex items-center justify-center border-[0.5px] border-black/80 text-black/80 px-5 py-2 text-[9px] md:text-[10px] font-light lowercase tracking-[0.2em] transition-colors duration-300 hover:border-black hover:text-black w-fit"
                   >
-                    SHOP NOW
-                    <ArrowUpRight className="w-3 h-3 ml-2 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-black origin-left scale-x-100 group-hover:scale-x-0 transition-transform duration-300" />
-                    <span className="absolute bottom-0 right-0 w-full h-[1px] bg-gray-400 origin-right scale-x-0 group-hover:scale-x-100 transition-transform duration-300 delay-100" />
+                    shop now
+                    <ArrowUpRight className="w-2.5 h-2.5 ml-3 transition-transform duration-300 group-hover:translate-x-[2px] group-hover:-translate-y-[2px]" strokeWidth={1} />
                   </Link>
                 </div>
               </div>
@@ -184,9 +179,6 @@ export default function Hero() {
 
         {/* Slide Indicators */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/80 backdrop-blur-md rounded-full px-3 py-1.5 shadow-sm pointer-events-auto">
-          <button onClick={goPrev} className="text-black/40 hover:text-black transition-colors">
-            <ChevronLeft className="w-3 h-3" />
-          </button>
           {SLIDES.map((_, idx) => (
             <button
               key={idx}
@@ -195,9 +187,6 @@ export default function Hero() {
                 }`}
             />
           ))}
-          <button onClick={goNext} className="text-black/40 hover:text-black transition-colors">
-            <ChevronRight className="w-3 h-3" />
-          </button>
         </div>
       </div>
     </div>

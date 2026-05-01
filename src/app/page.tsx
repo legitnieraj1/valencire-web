@@ -4,15 +4,25 @@ import Hero from "@/components/Hero";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
 import { DENIMS, BEST_SELLERS, JUST_ARRIVED, ALL_PRODUCTS } from "@/data/products";
 
-function ProductSection({ title, subtitle, products, showFilter = false, allProducts = [] }: any) {
+function ProductSection({ title, subtitle, products, showFilter = false, allProducts = [], scrollableCategories }: any) {
   const [activeFilter, setActiveFilter] = useState("Wide Fit");
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Determine which products to display based on filter
-  let displayProducts = products;
+  // Determine which products to display
+  const pool = allProducts.length > 0 ? allProducts : products;
+  let categoryPool = pool;
+
+  if (scrollableCategories) {
+    const currentCategory = scrollableCategories[activeIndex].value;
+    categoryPool = pool.filter((p: any) => p.category === currentCategory);
+  }
+
+  let displayProducts = categoryPool;
+
   if (showFilter) {
     const subcategoryMap: any = {
       "Wide Fit": "relaxed-fit",
@@ -20,9 +30,9 @@ function ProductSection({ title, subtitle, products, showFilter = false, allProd
       "Baggy": "relaxed-fit"
     };
     const targetSub = subcategoryMap[activeFilter];
-    // Find matching products from the allProducts pool (or fallback to passed products)
-    const pool = allProducts.length > 0 ? allProducts : products;
-    displayProducts = pool.filter((p: any) => p.subcategory === targetSub).slice(0, 4);
+    displayProducts = categoryPool.filter((p: any) => p.subcategory === targetSub).slice(0, 4);
+  } else {
+    displayProducts = categoryPool.slice(0, 4);
   }
 
   return (
@@ -30,14 +40,35 @@ function ProductSection({ title, subtitle, products, showFilter = false, allProd
       <div className="flex justify-between items-start mb-8">
         <div>
           {subtitle && <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-gray-400 mb-2">{subtitle}</p>}
-          <h2 className="text-4xl md:text-5xl font-semibold text-black tracking-tight">{title}</h2>
+          {scrollableCategories ? (
+            <div className="flex items-center gap-3">
+              <div 
+                className="h-[40px] md:h-[48px] overflow-y-scroll snap-y snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                onScroll={(e) => {
+                  const el = e.currentTarget;
+                  const index = Math.round(el.scrollTop / el.clientHeight);
+                  if (index !== activeIndex && index >= 0 && index < scrollableCategories.length) {
+                    setActiveIndex(index);
+                  }
+                }}
+              >
+                {scrollableCategories.map((c: any) => (
+                  <div key={c.value} className="h-full snap-start flex items-center">
+                    <h2 className="text-4xl md:text-5xl font-serif font-light lowercase text-black tracking-tight leading-none">{c.label}</h2>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col items-center justify-center text-[#1C1A17]/40 animate-pulse ml-1">
+                <ChevronUp className="w-4 h-4 -mb-1" strokeWidth={1.5} />
+                <ChevronDown className="w-4 h-4" strokeWidth={1.5} />
+              </div>
+            </div>
+          ) : (
+            <h2 className="text-4xl md:text-5xl font-serif font-light lowercase text-black tracking-tight">{title}</h2>
+          )}
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-6 mt-2">
           <Link href="#" className="text-[10px] font-bold uppercase tracking-widest border-b border-black pb-1 hover:text-gray-500 hover:border-gray-500 transition-colors">VIEW ALL</Link>
-          <div className="flex items-center gap-4">
-            <button className="text-gray-400 hover:text-black transition-colors"><ChevronLeft className="w-5 h-5" /></button>
-            <button className="text-gray-400 hover:text-black transition-colors"><ChevronRight className="w-5 h-5" /></button>
-          </div>
         </div>
       </div>
 
@@ -75,13 +106,17 @@ export default function Home() {
         <Hero />
       </div>
 
-      {/* 1. Denims Section */}
+      {/* 1. Jeans/Trousers Scrollable Section */}
       <ProductSection
-        title="Denims"
         subtitle="SHOP BY FIT"
         products={DENIMS}
         showFilter={true}
         allProducts={ALL_PRODUCTS}
+        scrollableCategories={[
+          { label: "jeans", value: "jeans" },
+          { label: "trousers", value: "trousers" },
+          { label: "shirts", value: "shirts" }
+        ]}
       />
 
       {/* 2. Best Sellers Section */}
@@ -91,61 +126,67 @@ export default function Home() {
       />
 
       {/* 4. Valencire Story */}
-      <section id="story" className="scroll-mt-[120px] py-24 bg-[#f7f5f0] animate-fade-up">
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10">
+      <section id="story" className="relative scroll-mt-[120px] py-32 bg-[#EFEADF] animate-fade-up overflow-hidden">
+        {/* Subtle noise overlay */}
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+        
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
             <div>
-              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.45em] text-black/40">About Valencire</p>
-              <h2 className="max-w-xl text-5xl font-semibold leading-[0.95] tracking-tight text-black md:text-7xl">
-                A wardrobe built in quiet chapters.
+              <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.45em] text-[#8B6F3A]">the story</p>
+              <h2 className="max-w-xl text-5xl font-semibold leading-[0.95] tracking-tight text-[#1C1A17] md:text-7xl font-serif">
+                from valencia,<br/>in our own language.
               </h2>
             </div>
-            <p className="max-w-2xl text-sm leading-7 text-black/55 md:text-base md:leading-8">
-              Valencire begins with restraint: the clean line of a pleat, the weight of denim, the ease of a wider trouser, and the confidence of pieces that do not ask for attention. Each collection is designed as a modern uniform for movement, proportion, and everyday presence.
+            <p className="max-w-2xl text-sm leading-7 text-[#4A453E] md:text-base md:leading-8 lowercase">
+              valenciré takes its name from valencia — a city built around art, architecture, and form. we borrow that vocabulary and bring it into indian tailoring. one trouser at a time. one drop at a time. nothing louder than it needs to be.
             </p>
           </div>
 
-          <div className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-5">
+          <div className="mt-24 grid grid-cols-2 gap-x-4 gap-y-12 md:grid-cols-5 md:gap-x-6">
             {[
-              { src: "/images/pleated_3.png", title: "The Pleat", copy: "Tailoring gives the first line its discipline." },
-              { src: "/images/jeans-2-mobile.png", title: "The Denim", copy: "Texture holds the memory of movement." },
-              { src: "/images/bush_4.png", title: "The Utility", copy: "Function is refined until it feels effortless." },
-              { src: "/images/bootcut_3.png", title: "The Cut", copy: "A longer silhouette brings quiet drama." },
-              { src: "/images/baggy_4.png", title: "The Ease", copy: "Volume becomes comfort, not excess." },
+              { src: "/images/pleated_3.png", title: "The Pleat", copy: "the foundation. a wide-leg trouser cut for drape, not for show." },
+              { src: "/images/jeans-2-mobile.png", title: "The Denim", copy: "denim, treated like tailoring. weight, fall, and a clean line." },
+              { src: "/images/bush_4.png", title: "The Utility", copy: "softer construction. fewer details. the trouser you reach for first." },
+              { src: "/images/bootcut_3.png", title: "The Cut", copy: "a longer break, a fuller leg. the silhouette doing the work." },
+              { src: "/images/baggy_4.png", title: "The Ease", copy: "relaxed, not loose. volume held in proportion." },
             ].map((item, index) => (
               <article
                 key={item.title}
-                className={`group relative min-h-[260px] overflow-hidden bg-black md:min-h-[430px] ${
+                className={`group relative min-h-[300px] md:min-h-[460px] p-2 md:p-3 bg-[#FDFBF7] shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-700 hover:shadow-[0_30px_50px_rgba(0,0,0,0.15)] hover:z-20 ${
                   index === 0 ? "col-span-2 md:col-span-1" : ""
-                }`}
+                } ${index % 2 === 0 ? "md:translate-y-8 md:rotate-[-2deg]" : "md:-translate-y-4 md:rotate-[2.5deg]"} hover:!rotate-0 hover:scale-[1.03]`}
               >
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-                  <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.35em] text-white/50">
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
-                  <p className="mt-2 max-w-[190px] text-[11px] leading-5 text-white/70">{item.copy}</p>
+                <div className="relative w-full h-full overflow-hidden">
+                  <Image
+                    src={item.src}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition-transform duration-1000 group-hover:scale-110 sepia-[.2] contrast-[1.1] saturate-[.85]"
+                  />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_50%,rgba(0,0,0,0.4)_120%)] pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#1C1A17]/85 via-[#1C1A17]/20 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5 text-[#FDFBF7]">
+                    <p className="mb-2 text-[9px] font-bold uppercase tracking-[0.35em] text-[#D4AF78]">
+                      {String(index + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="text-xl font-serif tracking-tight">{item.title}</h3>
+                    <p className="mt-2 max-w-[190px] text-[11px] leading-5 text-[#FDFBF7]/80 lowercase">{item.copy}</p>
+                  </div>
                 </div>
               </article>
             ))}
           </div>
 
-          <div className="mt-12 border-y border-black/10 py-8 md:flex md:items-center md:justify-between">
-            <p className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-black md:text-4xl">
-              Made for the man who dresses with intention, and leaves the room feeling effortless.
+          <div className="mt-28 border-y border-[#1C1A17]/10 py-12 flex flex-col items-center justify-center text-center">
+            <p className="max-w-2xl text-2xl font-serif italic leading-tight tracking-tight text-[#1C1A17] md:text-4xl lowercase">
+              made for those who dress quietly,<br/>and are noticed anyway.
             </p>
             <Link
               href="/collections/trousers"
-              className="mt-8 inline-flex border-b border-black pb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-black transition-colors hover:text-black/50 md:mt-0"
+              className="mt-8 inline-flex border-b border-[#1C1A17] pb-1 text-[10px] font-bold uppercase tracking-[0.3em] text-[#1C1A17] transition-colors hover:text-[#8B6F3A] hover:border-[#8B6F3A]"
             >
-              Explore the uniform
+              view the trousers &rarr;
             </Link>
           </div>
         </div>

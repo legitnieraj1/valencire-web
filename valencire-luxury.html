@@ -674,110 +674,163 @@
     .swatch:hover, .swatch.active { border-color: var(--black); }
 
     /* ─── EDITORIAL / SPLIT SECTION ─── */
-    .editorial { background: var(--black); overflow: hidden; }
+    .editorial { 
+      background-color: #EFEADF; 
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      overflow: hidden; 
+      padding: 120px 0;
+      position: relative;
+    }
 
     .editorial-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 680px;
+      gap: 60px;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
     }
 
-    .editorial-img {
+    .editorial-images {
       position: relative;
-      overflow: hidden;
+      height: 600px;
+      width: 100%;
     }
 
-    .editorial-img img {
-      object-position: center top;
-      transition: transform 1.2s ease;
+    .editorial-img-collage {
+      position: absolute;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border: 12px solid var(--white);
+      transition: transform 0.8s ease;
+      background: var(--white);
+    }
+    
+    .editorial-img-collage img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: sepia(0.2) contrast(1.1);
     }
 
-    .editorial-img:hover img { transform: scale(1.04); }
+    .editorial-img-1 {
+      width: 65%;
+      height: 70%;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      transform: rotate(-3deg);
+    }
+
+    .editorial-img-2 {
+      width: 55%;
+      height: 60%;
+      bottom: 20px;
+      right: 0;
+      z-index: 1;
+      transform: rotate(4deg);
+    }
+    
+    .editorial-img-3 {
+      width: 40%;
+      height: 45%;
+      top: 10%;
+      right: -5%;
+      z-index: 3;
+      transform: rotate(6deg);
+    }
+
+    .editorial-images:hover .editorial-img-1 { transform: rotate(-1deg) scale(1.02); }
+    .editorial-images:hover .editorial-img-2 { transform: rotate(2deg) scale(1.02); }
+    .editorial-images:hover .editorial-img-3 { transform: rotate(4deg) scale(1.02); }
 
     .editorial-content {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 80px 80px 80px 72px;
-      background: var(--black);
+      padding: 0 20px;
+      color: var(--charcoal);
     }
 
     .editorial-eyebrow {
       font-family: 'Jost', sans-serif;
-      font-size: 9.5px;
-      font-weight: 400;
+      font-size: 10.5px;
+      font-weight: 500;
       letter-spacing: 4px;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
+      color: var(--gold-dark);
+      margin-bottom: 24px;
     }
 
     .editorial-title {
       font-family: 'Cormorant Garant', serif;
-      font-size: clamp(38px, 4.5vw, 64px);
+      font-size: clamp(42px, 5vw, 72px);
       font-weight: 300;
-      line-height: 1.06;
-      color: var(--white);
+      line-height: 1.05;
+      color: var(--black);
       letter-spacing: -0.5px;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
-    .editorial-title em { font-style: italic; color: var(--gold-light); }
+    .editorial-title em { font-style: italic; color: var(--gold-dark); }
 
     .editorial-body {
       font-family: 'Jost', sans-serif;
-      font-size: 14px;
+      font-size: 15px;
       font-weight: 300;
       line-height: 1.9;
-      color: rgba(255,255,255,0.55);
-      max-width: 380px;
-      margin-bottom: 44px;
+      color: var(--mid);
+      max-width: 420px;
+      margin-bottom: 48px;
     }
 
-    .btn-gold {
+    .btn-vintage {
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: var(--gold);
-      color: var(--white);
+      background: transparent;
+      color: var(--black);
       font-family: 'Jost', sans-serif;
-      font-size: 10.5px;
+      font-size: 11px;
       font-weight: 500;
       letter-spacing: 3px;
       text-transform: uppercase;
-      padding: 17px 36px;
-      border: none;
+      padding: 16px 36px;
+      border: 1px solid var(--black);
       cursor: pointer;
       transition: var(--transition);
       width: fit-content;
     }
 
-    .btn-gold:hover { background: var(--gold-light); }
+    .btn-vintage:hover { 
+      background: var(--black);
+      color: var(--white);
+    }
 
     .editorial-stats {
       display: flex;
-      gap: 44px;
-      margin-top: 60px;
-      padding-top: 44px;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      gap: 48px;
+      margin-top: 50px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(0,0,0,0.1);
     }
 
     .stat-num {
       font-family: 'Cormorant Garant', serif;
-      font-size: 36px;
+      font-size: 40px;
       font-weight: 300;
-      color: var(--white);
+      color: var(--black);
       line-height: 1;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .stat-label {
       font-family: 'Jost', sans-serif;
       font-size: 9px;
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: var(--mid);
     }
 
     /* ─── CATEGORY PILLS ─── */
@@ -1286,8 +1339,9 @@
       .nav-top { padding: 0 24px; }
       .container { padding: 0 24px; }
       .hero-content { padding: 0 7% 6%; }
-      .editorial-grid { grid-template-columns: 1fr; }
-      .editorial-content { padding: 56px 32px; }
+      .editorial-grid { grid-template-columns: 1fr; gap: 40px; padding: 0 24px; }
+      .editorial-images { height: 450px; }
+      .editorial-content { padding: 0; }
       .testi-track { grid-template-columns: 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
       .features-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
@@ -1600,16 +1654,24 @@
 <!-- ══════════════════════════════════════ EDITORIAL -->
 <section class="editorial">
   <div class="editorial-grid">
-    <div class="editorial-img">
-      <img src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=900&q=85&auto=format&fit=crop" alt="The Valenciré Story" />
+    <div class="editorial-images reveal">
+      <div class="editorial-img-collage editorial-img-1">
+        <img src="https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=900&q=85&auto=format&fit=crop" alt="The Valenciré Story 1" />
+      </div>
+      <div class="editorial-img-collage editorial-img-2">
+        <img src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?w=900&q=85&auto=format&fit=crop" alt="The Valenciré Story 2" />
+      </div>
+      <div class="editorial-img-collage editorial-img-3">
+        <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=900&q=85&auto=format&fit=crop" alt="The Valenciré Story 3" />
+      </div>
     </div>
-    <div class="editorial-content">
+    <div class="editorial-content reveal reveal-delay-2">
       <p class="editorial-eyebrow">The Maison</p>
       <h2 class="editorial-title">Born from<br/>a Vision of<br/><em>Timeless</em><br/>Refinement</h2>
       <p class="editorial-body">
         Valenciré was founded on the belief that true luxury is not loud. It is felt in the weight of fabric, the precision of a cut, and the quiet confidence that comes from wearing something truly exceptional. Every piece is a dialogue between heritage craft and contemporary vision.
       </p>
-      <a href="#" class="btn-gold">
+      <a href="#" class="btn-vintage">
         Our Story
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
