@@ -349,44 +349,83 @@ export default function Navbar() {
 
       {/* ── Mobile drawer ── */}
       <div
-        className={`fixed inset-0 z-[60] bg-black/40 transition-opacity duration-300 lg:hidden ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm transition-opacity duration-400 lg:hidden ${mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
         onClick={() => setMobileOpen(false)}
       />
       <div
-        className={`fixed top-0 left-0 h-full w-[82vw] max-w-[340px] z-[70] bg-white shadow-2xl transition-transform duration-400 ease-out flex flex-col lg:hidden ${
+        className={`fixed top-0 left-0 h-full w-[85vw] max-w-[380px] z-[70] flex flex-col bg-[#FAF8F5] border-r-[5px] border-black transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] lg:hidden ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#e8e8e8]">
-          <div className="flex items-center gap-3">
-            <VCMark size={34} color="#000" />
-            <ValencireWordmark size="0.62rem" color="#000" />
+        {/* Top accent bar */}
+        <div className="h-[5px] w-full bg-[#FFF44F] flex-shrink-0" />
+
+        {/* Header */}
+        <div className="flex items-start justify-between px-6 py-5 bg-[#EAE8E3] border-b-[4px] border-black flex-shrink-0">
+          <div>
+            <p className="text-[9px] tracking-[0.45em] uppercase text-gray-500 mb-2" style={{ fontFamily: "'Courier New', Courier, monospace" }}>
+              Navigation
+            </p>
+            <div className="flex items-center gap-3">
+              <VCMark size={32} color="#000" />
+              <ValencireWordmark size="0.55rem" color="#000" />
+            </div>
           </div>
-          <button onClick={() => setMobileOpen(false)} aria-label="Close"><X className="w-5 h-5" /></button>
+          <button 
+            onClick={() => setMobileOpen(false)} 
+            className="w-10 h-10 border-[3px] border-black bg-[#FFF44F] shadow-[3px_3px_0px_rgba(0,0,0,1)] hover:bg-[#FFD700] active:translate-x-[3px] active:translate-y-[3px] active:shadow-none transition-all flex items-center justify-center mt-1"
+            aria-label="Close"
+          >
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M1 1L11 11M11 1L1 11" stroke="black" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          </button>
         </div>
-        <nav className="flex-1 overflow-y-auto">
+
+        {/* Links */}
+        <nav className="flex-1 overflow-y-auto px-6 py-4 flex flex-col gap-0">
           {NAV.map((item) => (
             <Link
               key={item.label}
               href={item.href}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center justify-between px-6 py-4 text-[11px] font-semibold tracking-widest uppercase border-b border-[#f0f0f0] hover:bg-[#f7f7f7] transition-colors ${
+              className={`group flex items-center justify-between py-5 border-b-[3px] border-black transition-all ${
                 item.highlight ? "text-red-600" : "text-black"
               }`}
-              style={{ fontFamily: "var(--font-inter)" }}
             >
-              {item.label}
-              <ChevronRight className="w-4 h-4 text-[#bbb]" />
+              <span 
+                className="text-[14px] font-bold uppercase tracking-[0.15em] group-hover:translate-x-2 transition-transform duration-300" 
+                style={{ fontFamily: "'Courier New', Courier, monospace" }}
+              >
+                {item.label}
+              </span>
+              <div className="w-8 h-8 border-[2px] border-black bg-[#EAE8E3] shadow-[2px_2px_0px_rgba(0,0,0,1)] flex items-center justify-center group-hover:bg-[#FFF44F] group-hover:shadow-[3px_3px_0px_rgba(0,0,0,1)] transition-all">
+                <ChevronRight className="w-4 h-4 text-black" strokeWidth={2.5} />
+              </div>
             </Link>
           ))}
         </nav>
-        <div className="border-t border-[#e8e8e8] px-6 py-5 flex gap-6">
-          <Link href="/account" className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-black" style={{ fontFamily: "var(--font-inter)" }}>
-            <User className="w-4 h-4" /> Account
-          </Link>
-          <Link href="/wishlist" className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-black" style={{ fontFamily: "var(--font-inter)" }}>
-            <Heart className="w-4 h-4" /> Wishlist
-          </Link>
+
+        {/* Footer */}
+        <div className="border-t-[4px] border-black bg-[#EAE8E3] p-6 flex-shrink-0">
+          <div className="grid grid-cols-2 gap-4">
+            <Link 
+              href="/account" 
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center gap-2 border-[3px] border-black bg-white py-3 shadow-[4px_4px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all text-black hover:bg-black hover:text-[#FFF44F]"
+            >
+              <User className="w-4 h-4" strokeWidth={2} /> 
+              <span className="text-[11px] font-bold tracking-widest uppercase" style={{ fontFamily: "'Courier New', Courier, monospace" }}>Account</span>
+            </Link>
+            <Link 
+              href="/wishlist" 
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-center gap-2 border-[3px] border-black bg-white py-3 shadow-[4px_4px_0px_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all text-black hover:bg-black hover:text-[#FFF44F]"
+            >
+              <Heart className="w-4 h-4" strokeWidth={2} /> 
+              <span className="text-[11px] font-bold tracking-widest uppercase" style={{ fontFamily: "'Courier New', Courier, monospace" }}>Wishlist</span>
+            </Link>
+          </div>
         </div>
       </div>
     </>
