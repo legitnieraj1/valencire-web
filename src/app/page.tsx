@@ -27,10 +27,10 @@ function useReveal() {
   return ref;
 }
 
-function RevealSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function RevealSection({ children, className = "", id }: { children: React.ReactNode; className?: string; id?: string }) {
   const ref = useReveal();
   return (
-    <section ref={ref} className={`reveal ${className}`}>
+    <section ref={ref} id={id} className={`reveal ${className}`}>
       {children}
     </section>
   );
