@@ -6,28 +6,36 @@ import Footer from "@/components/Footer";
 import { CartProvider } from "@/context/CartContext";
 import AppShell from "@/components/AppShell";
 
-/* ─── Display font: editorial, luxury serif ─── */
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
   display: "swap",
 });
 
-/* ─── UI font: clean geometric sans ─── */
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400"],
   variable: "--font-inter",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "VALENCIRE | Luxury Menswear",
+  title: "Valenciré — Drop 01",
   description:
-    "Premium luxury menswear. Defining modern editorial style with precision tailoring and refined materials.",
-  keywords: "luxury menswear, premium fashion, designer clothing, Valencire",
+    "an indian designer label built around the trouser. drop 01, summer 2026.",
+  openGraph: {
+    title: "Valenciré",
+    description: "an indian designer label built around the trouser.",
+    images: ["/og-image.jpg"],
+    siteName: "Valenciré",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Valenciré",
+    description: "an indian designer label built around the trouser.",
+  },
 };
 
 export default function RootLayout({
@@ -38,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${cormorant.variable} ${inter.variable} font-ui min-h-screen flex flex-col bg-white text-black antialiased`}
+        className={`${cormorant.variable} ${inter.variable} font-ui min-h-screen flex flex-col bg-paper text-ink antialiased`}
       >
         <CartProvider>
           <AppShell>
@@ -51,4 +59,3 @@ export default function RootLayout({
     </html>
   );
 }
-

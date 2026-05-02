@@ -1,6 +1,5 @@
 import { ALL_PRODUCTS } from "@/data/products";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
 import CollectionProductBrowser from "@/components/CollectionProductBrowser";
 
 export default async function CollectionPage(props: {
@@ -12,38 +11,37 @@ export default async function CollectionPage(props: {
   const { category } = params;
   const sort = searchParams.sort;
 
-  // Filter products by category
   let filteredProducts = ALL_PRODUCTS.filter((p) => p.category === category);
 
-  // If there's a sort parameter, filter further by subcategory
   if (sort) {
     filteredProducts = filteredProducts.filter((p) => p.subcategory === sort);
   }
 
-  // Formatting title
-  const title = sort 
-    ? sort.replace(/-/g, " ") 
+  const title = sort
+    ? sort.replace(/-/g, " ")
     : category.replace(/-/g, " ");
 
   return (
-    <div className="min-h-screen bg-white pt-24 pb-20 font-ui">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-10">
-        
+    <div className="min-h-screen bg-paper pt-8 pb-20">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12">
         {/* Breadcrumbs */}
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-12">
-          <Link href="/" className="hover:text-black transition-colors">Home</Link>
-          <ChevronRight className="w-3 h-3" />
-          <span className="text-black capitalize">{title}</span>
+        <div
+          className="flex items-center gap-2 text-xs font-light text-stone mb-12"
+          style={{ fontFamily: "var(--font-inter)" }}
+        >
+          <Link href="/" className="hover:text-ink transition-colors">home</Link>
+          <span>/</span>
+          <span className="text-ink lowercase">{title}</span>
         </div>
 
         {/* Header */}
         <div className="mb-16">
-          <h1 className="text-5xl md:text-6xl font-semibold text-black tracking-tight capitalize">
+          <h1
+            className="text-4xl md:text-5xl font-light text-ink tracking-[-0.02em] lowercase"
+            style={{ fontFamily: "var(--font-cormorant)" }}
+          >
             {title}
           </h1>
-          <p className="text-sm text-gray-500 mt-4 max-w-xl">
-            Explore our curated selection of {title.toLowerCase()}. Crafted with precision and the finest materials for the modern wardrobe.
-          </p>
         </div>
 
         <CollectionProductBrowser products={filteredProducts} title={title} />
