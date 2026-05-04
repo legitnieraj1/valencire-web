@@ -16,18 +16,11 @@ export default function Hero() {
     <section className="relative w-full h-[100svh] overflow-hidden">
       {/* Campaign image */}
       <Image
-        src="/images/hero-1.png"
+        src="/oldmoney pics/main hero-bg.png"
         alt="Valenciré campaign"
         fill
         priority
-        className="object-cover object-[center_30%] hidden md:block"
-      />
-      <Image
-        src="/images/heromobile.jpg"
-        alt="Valenciré campaign"
-        fill
-        priority
-        className="object-cover object-center block md:hidden"
+        className="object-cover object-center"
       />
 
       {/* Warm fade to paper at bottom */}
